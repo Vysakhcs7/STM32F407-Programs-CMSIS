@@ -49,9 +49,7 @@ int main(void)
     uart2_single_write('A');
     uart2_single_write('\r');
     uart2_single_write('\n');
-    
     delay();
-    
     /* Passing a string */
     uart2_string_write("Hello\n\r");
     delay();
