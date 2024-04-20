@@ -28,11 +28,8 @@ IDE               : Keil uVision V5.39.0.0
 //-----------------------------------------------------------------------------------------------
 #include "stm32f407xx.h"
 void gpio_config(void);
-//void uart2_config(void);
 void adc1_config(void);
-//void uart2_string_write(char *str);
-void delay(void);
-unsigned int result;
+static unsigned int result = 0;
 //-----------------------------------------------------------------------------------------------
 int main(void)
 {
@@ -51,9 +48,6 @@ int main(void)
     /* 1: Conversion complete (EOCS=0), or sequence of conversions complete (EOCS=1) */
     while (!(ADC1->SR & ADC_SR_EOC)){}
     result = ADC1->DR;
-	
-    //uart2_string_write("%d",result);
-    //delay();
   }
 }
 //-----------------------------------------------------------------------------------------------
@@ -64,13 +58,14 @@ int main(void)
   /*Clock access enabled for GPIOA */
   RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
   
-  /*PA0 set to analog mode */
-  GPIOA->MODER |= GPIO_MODER_MODE0_0;
-  GPIOA->MODER |= GPIO_MODER_MODE0_1;
+  /*PA1 set to analog mode */
+  GPIOA->MODER |= GPIO_MODER_MODE1_0;
+  GPIOA->MODER |= GPIO_MODER_MODE1_1;
  }
 //-----------------------------------------------------------------------------------------------
 void adc1_config(void)
 {
+	/*Clock access enabled for ADC1 */
   /* Bit 8 ADC1EN: ADC1 clock enable */
   /* 1: ADC1 clock enabled */
   RCC->APB2ENR  |= RCC_APB2ENR_ADC1EN;
@@ -86,6 +81,12 @@ void adc1_config(void)
   /* Bits 25:24 RES[1:0]: Resolution */
   /* 00: 12-bit (15 ADCCLK cycles) */
   ADC1->CR1 &= ~ADC_CR1_RES_0 & ~ADC_CR1_RES_1;
+	
+	/* Bits 4:0 AWDCH[4:0]: Analog watchdog channel select bits */
+	/* 00001: ADC analog input Channel **/
+	ADC1->CR1 |= ADC_CR1_AWDCH_0;
+	
+	ADC1->SQR3 |= ADC_SQR3_SQ1_0;
   
   /* Bit 0 ADON: A/D Converter ON / OFF */
   /* 1: Enable ADC */
