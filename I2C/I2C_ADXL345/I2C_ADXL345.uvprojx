@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>I2C_Driver</OutputName>
+          <OutputName>I2C_ADXL345</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -134,11 +134,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>-1</DriverSelection>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -382,47 +382,44 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Main</GroupName>
+          <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\main.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>I2C_Driver</GroupName>
+          <Files>
             <File>
-              <FileName>rcc_config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\rcc_config.h</FilePath>
-            </File>
-            <File>
-              <FileName>rcc_config.c</FileName>
+              <FileName>i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\rcc_config.c</FilePath>
+              <FilePath>.\i2c.c</FilePath>
             </File>
             <File>
-              <FileName>gpio_config.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\gpio_config.c</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_config.h</FileName>
+              <FileName>i2c.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\gpio_config.h</FilePath>
-            </File>
-            <File>
-              <FileName>i2c_driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\i2c_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>i2c_driver.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\i2c_driver.h</FilePath>
+              <FilePath>.\i2c.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>DS1307</GroupName>
+          <GroupName>ADXL345_Driver</GroupName>
+          <Files>
+            <File>
+              <FileName>adxl345.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\adxl345.c</FilePath>
+            </File>
+            <File>
+              <FileName>adxl345.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\adxl345.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>
@@ -469,5 +466,14 @@
       </file>
     </files>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>I2C_ADXL345</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>
