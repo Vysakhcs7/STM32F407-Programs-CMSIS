@@ -23,15 +23,17 @@ int main(void){
     i2c_config();
 	
 	lcd_send__cmd(0x28); //4bit mode
-lcd_send__cmd(0x0E); //Display ON, Cursor ON
-lcd_send__cmd(0x28); //4bit mode
-lcd_send__cmd(0x0E); //Display ON, Cursor ON
-lcd_send__cmd(0x01); //Clear Display Screen
-lcd_send__cmd(0x80); //Force cursor to begin on 1st row
-    lcd_send_data('7'); //Passing a single character to the LCD
-lcd_send__cmd(0xC0); //Change position to 1st coloumn of 2nd row
-lcd_send__string("HAI!!"); ////Passing a string to the LCD
-    while(1) {
+	lcd_send__cmd(0x01); //Clear Display Screen
+	lcd_send__cmd(0x0E); //Display ON, Cursor ON
+	lcd_send__cmd(0x28); //4bit mode
+	lcd_send__cmd(0x0E); //Display ON, Cursor ON
+	lcd_send__cmd(0x01); //Clear Display Screen
+	lcd_send__cmd(0x80); //Force cursor to begin on 1st row
+	lcd_send__cmd(0x01); //Clear Display Screen
+	lcd_send_data('*'); //Passing a single character to the LCD
+	lcd_send__cmd(0xC0); //Change position to 1st coloumn of 2nd row
+	lcd_send__string("HELLO"); ////Passing a string to the LCD
+			while(1) {
  
   }
 }
@@ -193,8 +195,8 @@ void delay(void)
 void lcd_send__string(char *stringValue) {
     while ((*stringValue) != '\0') {
         lcd_send_data(*stringValue);
-        //stringValue++;
-			stringValue = (char *)((uint32_t)stringValue + 1);
+        stringValue++;
+			//stringValue = (char *)((uint32_t)stringValue + 1);
     }
 }
 

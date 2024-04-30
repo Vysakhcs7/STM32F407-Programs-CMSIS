@@ -27,14 +27,17 @@ Project File Date:  04/27/2024
 <h2>Output:</h2>
 *** Using Compiler 'V6.21', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-main.c(98): warning: variable 'tmp' set but not used [-Wunused-but-set-variable]
-   98 |          volatile uint32_t tmp;
+main.c(100): warning: variable 'tmp' set but not used [-Wunused-but-set-variable]
+  100 |          volatile uint32_t tmp;
       |                            ^
-1 warning generated.
+main.c(198): warning: unsafe pointer arithmetic [-Wunsafe-buffer-usage]
+  198 |         stringValue++;
+      |         ^~~~~~~~~~~
+2 warnings generated.
 compiling main.c...
 linking...
-Program Size: Code=1244 RO-data=416 RW-data=0 ZI-data=1632  
-".\Objects\10_I2C_LCD.axf" - 0 Error(s), 1 Warning(s).
+Program Size: Code=1260 RO-data=416 RW-data=0 ZI-data=1632  
+".\Objects\10_I2C_LCD.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -60,12 +63,12 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE@6.0.0
 
    * Component: Keil::Device:Startup@2.6.3
+      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
-      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>
