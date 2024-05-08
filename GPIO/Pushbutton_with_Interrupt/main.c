@@ -13,7 +13,7 @@ GPIOA -> PIN 0  -> Pushbutton
 7.	Configure PA0 as the source input for EXTI0 external interrupt by modifying the SYSCFG_EXTICR1 register appropriately.
 8.	Ensure that interrupt request from line 0 is not masked by setting the corresponding bit in the EXTI_IMR register.
 9.	Enable falling trigger by setting the corresponding bit in the EXTI_FTSR register.
-10.	Disable rising trigger by clearing the corresponding bit in the EXTI_RTSR register.
+10.	Enable rising trigger by setting the corresponding bit in the EXTI_RTSR register.
 11.	Enable EXTI0 line in the Nested Vector Interrupt Controller (NVIC) by calling NVIC_EnableIRQ() with the appropriate IRQ number for EXTI0.
 12.	Enable global interrupt.
 13. Implement the IRQHandler function.
@@ -36,9 +36,9 @@ int main(void)
 	clock_config();
   gpio_config();
 	EXTI_config();
-	while(1)
+   while(1)
 	{
-		
+
 	}
 }
 
@@ -74,8 +74,8 @@ void EXTI_config(void)
 	EXTI->IMR |= EXTI_IMR_MR0;
 	/* Falling trigger enabled  */
 	EXTI->FTSR |= EXTI_FTSR_TR0;
-	/* Rising trigger disabled */
-	EXTI->RTSR &= ~EXTI_RTSR_TR0;
+	/* Rising trigger enabled */
+	EXTI->RTSR |= EXTI_RTSR_TR0;
 	/* Enable EXTI0 line in NVIC*/
 	NVIC_EnableIRQ(EXTI0_IRQn);
 	/*Enable Global Interrupt*/
@@ -87,8 +87,9 @@ void EXTI0_IRQHandler(void)
 	if((EXTI->PR) & (EXTI_PR_PR0))
 	{
 		/* Clear PR flag */
-		EXTI->PR |= EXTI_PR_PR0;
+    EXTI->PR |= EXTI_PR_PR0;
 		GPIOD->ODR ^= GPIO_ODR_OD12;
+    
 		
 	}
 }
