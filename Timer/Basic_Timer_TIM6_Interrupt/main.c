@@ -63,9 +63,9 @@ void gpio_config(void)
 void timer_config(void)
 {
     /* Prescaler value */
-    TIM6->PSC = 250;  //For 100ms, 16Mhz/250 = 64000Hz
+    TIM6->PSC = 250 - 1;  //For 100ms, 16Mhz/250 = 64000Hz
     /* Auto-reload value */
-    TIM6->ARR = 64000; //For 100ms, T=1/64000Hz = .015625ms, ARR = 1000ms/.015625 = 64000.
+    TIM6->ARR = 64000 - 1; //For 100ms, T=1/64000Hz = .015625ms, ARR = 1000ms/.015625 = 64000.
     /* Update interrupt enable */
     TIM6->DIER |= TIM_DIER_UIE;
     /* Enable TIM6 interrupt in NVIC */
