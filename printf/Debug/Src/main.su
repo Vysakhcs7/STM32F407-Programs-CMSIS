@@ -1,0 +1,7 @@
+../Src/main.c:13:5:__io_putchar	16	static
+../Src/main.c:25:5:main	16	static
+../Src/main.c:46:6:gpio_config	4	static
+../Src/main.c:62:6:uart2_config	4	static
+../Src/main.c:92:6:uart2_single_write	16	static
+../Src/main.c:101:6:uart2_string_write	16	static
+../Src/main.c:113:6:delay	16	static
