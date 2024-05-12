@@ -66,11 +66,11 @@ int main(void)
   {   
 		   mcu_send_start(); 
 		   dht11_response();
-       read();
-//		   read_dht11(&temperature, &humidity);
-//        printf("Temperature: %d\n", temperature);
-//        printf("Humidity: %d%%\n", humidity);
-	     delay_us(2000000); //2s	
+       
+		   read_dht11(&temperature, &humidity);
+        printf("Temperature: %d\n", temperature);
+        printf("Humidity: %d%%\n", humidity);
+	     delay_us(500000); //500ms	
   }
 	
 }
@@ -228,23 +228,3 @@ void read_dht11(uint8_t *temperature, uint8_t *humidity)
     }
 }
 //-------------------------------------------------------------------------------------------------------------
-void read(void)
-{
-    for(int k =0; k<40; k++)
-  {
-     while (!(GPIOA->IDR & GPIO_IDR_ID1));
-
-    delay_us(30);
-    if(GPIOA->IDR & GPIO_IDR_ID1)
-    {
-    c = 1;
-    }
-    else
-    {
-     c = 0;
-    }
-    while (GPIOA->IDR & GPIO_IDR_ID1);
-    printf("%d",c);
-  }
-      printf("\n\r");
-}

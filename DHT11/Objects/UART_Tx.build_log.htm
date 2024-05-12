@@ -42,12 +42,6 @@ main.c(57): warning: no previous extern declaration for non-static variable 'c' 
 main.c(57): note: declare 'static' if the variable is not intended to be used outside of this translation unit
    57 |  int c = 0;
       |  ^
-main.c(62): warning: unused variable 'temperature' [-Wunused-variable]
-   62 |    uint8_t temperature, humidity;
-      |            ^~~~~~~~~~~
-main.c(62): warning: unused variable 'humidity' [-Wunused-variable]
-   62 |    uint8_t temperature, humidity;
-      |                         ^~~~~~~~
 main.c(214): warning: unsafe buffer access [-Wunsafe-buffer-usage]
   214 |                 data[i] |= (1 << (7 - j)); // Store '1'
       |                 ^~~~
@@ -66,11 +60,11 @@ main.c(221): warning: unsafe buffer access [-Wunsafe-buffer-usage]
 main.c(223): warning: unsafe buffer access [-Wunsafe-buffer-usage]
   223 |         *temperature = data[2];
       |                        ^~~~
-11 warnings generated.
+9 warnings generated.
 compiling main.c...
 linking...
-Program Size: Code=7612 RO-data=968 RW-data=0 ZI-data=1728  
-".\Objects\UART_Tx.axf" - 0 Error(s), 11 Warning(s).
+Program Size: Code=7712 RO-data=996 RW-data=0 ZI-data=1720  
+".\Objects\UART_Tx.axf" - 0 Error(s), 9 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -96,12 +90,12 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE@6.0.0
 
    * Component: Keil::Device:Startup@2.6.3
-      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+      Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>
