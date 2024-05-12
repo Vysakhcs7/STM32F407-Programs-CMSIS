@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\UART_Tx.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\UART_Tx.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Sun May 12 02:35:24 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6210000: Last Updated: Sun May 12 21:01:16 2024
 <BR><P>
 <H3>Maximum Stack Usage =        324 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -411,7 +411,7 @@ Global Symbols
 
 <P><STRONG><a name="[91]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; dht11_data &rArr; printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; read &rArr; printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -756,7 +756,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dht11_data
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read
 </UL>
 
 <P><STRONG><a name="[f1]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
@@ -1118,36 +1118,26 @@ Global Symbols
 <P><STRONG><a name="[5b]"></a>SystemInit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, system_stm32f4xx.o(.text.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(.text)
 </UL>
-<P><STRONG><a name="[bc]"></a>__io_putchar</STRONG> (Thumb, 46 bytes, Stack size 4 bytes, main.o(.text.__io_putchar))
+<P><STRONG><a name="[bb]"></a>__io_putchar</STRONG> (Thumb, 46 bytes, Stack size 4 bytes, main.o(.text.__io_putchar))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __io_putchar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
 </UL>
 
-<P><STRONG><a name="[bd]"></a>clock_config</STRONG> (Thumb, 102 bytes, Stack size 0 bytes, main.o(.text.clock_config))
+<P><STRONG><a name="[bc]"></a>clock_config</STRONG> (Thumb, 102 bytes, Stack size 0 bytes, main.o(.text.clock_config))
 <BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[ba]"></a>delay_us</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, main.o(.text.delay_us))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = delay_us
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dht11_data
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dht11_response
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
+<BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dht11_response
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b9]"></a>dht11_data</STRONG> (Thumb, 190 bytes, Stack size 16 bytes, main.o(.text.dht11_data))
-<BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
-<LI>Call Chain = dht11_data &rArr; printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
-</UL>
-<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printf
-<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-</UL>
-<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[bb]"></a>dht11_response</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, main.o(.text.dht11_response))
+<P><STRONG><a name="[b9]"></a>dht11_response</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, main.o(.text.dht11_response))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = dht11_response &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
@@ -1158,33 +1148,33 @@ Global Symbols
 <P><STRONG><a name="[5d]"></a>fputc</STRONG> (Thumb, 18 bytes, Stack size 16 bytes, main.o(.text.fputc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = fputc &rArr; __io_putchar
 </UL>
-<BR>[Calls]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__io_putchar
+<BR>[Calls]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__io_putchar
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> _printf_char_file.o(.text)
 </UL>
 <P><STRONG><a name="[c3]"></a>gpio_input</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, main.o(.text.gpio_input))
-<BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
+<BR><BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
 </UL>
 
 <P><STRONG><a name="[c0]"></a>gpio_output</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, main.o(.text.gpio_output))
-<BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
+<BR><BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
 </UL>
 
 <P><STRONG><a name="[92]"></a>main</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, main.o(.text.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
-<LI>Call Chain = main &rArr; dht11_data &rArr; printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
+<LI>Call Chain = main &rArr; read &rArr; printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dht11_data
-<LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dht11_response
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_config
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clock_config
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;read
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dht11_response
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_config
+<LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clock_config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[bf]"></a>mcu_send_start</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, main.o(.text.mcu_send_start))
+<P><STRONG><a name="[be]"></a>mcu_send_start</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, main.o(.text.mcu_send_start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = mcu_send_start &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpio_input
@@ -1197,14 +1187,24 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c1]"></a>pin_high</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, main.o(.text.pin_high))
-<BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
+<BR><BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
 </UL>
 
 <P><STRONG><a name="[c2]"></a>pin_low</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, main.o(.text.pin_low))
-<BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
+<BR><BR>[Called By]<UL><LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_start
 </UL>
 
-<P><STRONG><a name="[be]"></a>uart2_config</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, main.o(.text.uart2_config))
+<P><STRONG><a name="[bf]"></a>read</STRONG> (Thumb, 156 bytes, Stack size 16 bytes, main.o(.text.read))
+<BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
+<LI>Call Chain = read &rArr; printf &rArr; _printf_char_file &rArr; _printf_char_common &rArr; __printf
+</UL>
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;printf
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+</UL>
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[bd]"></a>uart2_config</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, main.o(.text.uart2_config))
 <BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 

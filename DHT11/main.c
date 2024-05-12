@@ -23,18 +23,19 @@ IDE               : Keil uVision V5.39.0.0
 #include<stdint.h>
 
 // Function prototypes
-void gpio_config(void);
 void uart2_config(void);
 void uart2_single_write(int ch);
-void uart2_string_write(char *str);
 void delay(void);
 int __io_putchar(int ch);
+void read_dht11(uint8_t *temperature, uint8_t *humidity);
+
 // Retargeting printf() to USART2
 int __io_putchar(int ch) {
     while (!(USART2->SR & USART_SR_TXE)); // Wait for TX buffer to be empty
     USART2->DR = (ch & 0xFF);             // Transmit character
     return ch;
 }
+
 
 // Redirect STDOUT to USART2
 FILE __stdout;
@@ -52,21 +53,23 @@ void dht11_response(void);
 void pin_high(void);
 void pin_low(void);
 void delay_us(uint32_t us);
-void dht11_data(void);
 int inputValue = 0;
-uint16_t data = 0;
-uint8_t byte1,byte2;
-
+ int c = 0;
+void read(void);
 //-----------------------------------------------------------------------------------------------
 int main(void)
 {
+   uint8_t temperature, humidity;
   clock_config();
     uart2_config();
   while(1)
-  {    
+  {   
 		   mcu_send_start(); 
 		   dht11_response();
-		   dht11_data();
+       read();
+//		   read_dht11(&temperature, &humidity);
+//        printf("Temperature: %d\n", temperature);
+//        printf("Humidity: %d%%\n", humidity);
 	     delay_us(2000000); //2s	
   }
 	
@@ -159,37 +162,6 @@ void delay_us(uint32_t us) {
      }
 	}
 //-----------------------------------------------------------------------------------------------
-	void dht11_data(void)
-	{
-    for (int i = 0; i<16; i++)
-    {
-    inputValue = (GPIOA->IDR & GPIO_IDR_ID1) ? 1 : 0;
-     if(inputValue == 0)
-     {
-       delay_us(54); //54us
-     }
-     
-     delay_us(40); //54us
-     inputValue = (GPIOA->IDR & GPIO_IDR_ID1) ? 1 : 0;
-     if(inputValue == 0)
-     {
-       
-       data =  0;
-         printf("1 : %d\n\r",data);
-       
-     }
-     else{
-       data =  1;
-        printf("2 : %d\n\r",data); 
-     }
-   }
-    byte1 = data >> 8;
-    byte2 = data & 0xff;
-  
-  
-	}
-//-----------------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------------
 /*UART configurations */
 void uart2_config(void)
 {
@@ -226,5 +198,53 @@ void uart2_single_write (int ch)
      while (!(USART2->SR & USART_SR_TXE)) {}
      USART2->DR = (ch & 0XFF);
 }
-
 //-----------------------------------------------------------------------------------------------
+void read_dht11(uint8_t *temperature, uint8_t *humidity)
+{
+    uint8_t data[5] = {0};
+    // Data is transmitted in 40 bits, first 2 bytes are humidity data, the next 2 bytes are temperature data, and the last byte is checksum
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 8; j++) {
+            // Wait for the falling edge of the signal
+            while (!(GPIOA->IDR & GPIO_IDR_ID1));
+            
+            // Measure the width of the pulse
+            delay_us(30); // DHT11 data pin will be low for 26-28 us for '0' and 70us for '1'
+            if (GPIOA->IDR & GPIO_IDR_ID1) { // Check if the pin is still high after the delay
+                data[i] |= (1 << (7 - j)); // Store '1'
+            }
+            // Wait for the signal to go back high
+            while (GPIOA->IDR & GPIO_IDR_ID1);
+        }
+    }
+    // Checksum verification
+    if ((data[0] + data[1] + data[2] + data[3]) == data[4]) {
+        *humidity = data[0];
+        *temperature = data[2];
+    } else {
+        // Checksum error
+        *humidity = 0;
+        *temperature = 0;
+    }
+}
+//-------------------------------------------------------------------------------------------------------------
+void read(void)
+{
+    for(int k =0; k<40; k++)
+  {
+     while (!(GPIOA->IDR & GPIO_IDR_ID1));
+
+    delay_us(30);
+    if(GPIOA->IDR & GPIO_IDR_ID1)
+    {
+    c = 1;
+    }
+    else
+    {
+     c = 0;
+    }
+    while (GPIOA->IDR & GPIO_IDR_ID1);
+    printf("%d",c);
+  }
+      printf("\n\r");
+}
