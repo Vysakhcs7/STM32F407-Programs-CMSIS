@@ -21,13 +21,32 @@ Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.2.0.0
 Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
-D:\STM32F407-Programs-CMSIS\GPIO\LED_Blink\Led_Blink.uvprojx
-Project File Date:  05/09/2024
+D:\STM32F407-Programs-CMSIS\SPI\BMP280_Pressure_Sensor\BMP280_Pressure_Sensor.uvprojx
+Project File Date:  05/16/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.21', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-".\Objects\Led_Blink.axf" - 0 Error(s), 0 Warning(s).
+main.c(158): warning: implicit conversion loses integer precision: 'volatile uint32_t' (aka 'volatile unsigned int') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+  158 |         *data++ = SPI1->DR;
+      |                 ~ ~~~~~~^~
+main.c(170): warning: implicit conversion loses integer precision: 'volatile uint32_t' (aka 'volatile unsigned int') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+  170 |         data1 = SPI1->DR;  
+      |               ~ ~~~~~~^~
+main.c(50): warning: no previous extern declaration for non-static variable 'data1' [-Wmissing-variable-declarations]
+   50 | uint8_t data1;
+      |         ^
+main.c(50): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   50 | uint8_t data1;
+      | ^
+main.c(158): warning: unsafe pointer arithmetic [-Wunsafe-buffer-usage]
+  158 |         *data++ = SPI1->DR;
+      |          ^~~~
+4 warnings generated.
+compiling main.c...
+linking...
+Program Size: Code=780 RO-data=408 RW-data=0 ZI-data=1640  
+".\Objects\BMP280_Pressure_Sensor.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -58,7 +77,7 @@ Package Vendor: Keil
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
