@@ -34,7 +34,7 @@ AF5 - SPI1 (10: Alternate function mode) - 0101: Pins - 23 22 21 20 - GPIOA->AFR
 #define BMP280_PRESS_LSB                0XF8
 #define BMP280_PRESS_MSB                0XF7
 #define BMP280_CONFIG                   0XF5
-#define BMP280_CTRL_MEAS                0XF4
+#define BMP280_CTRL_MEAS                0XF4 				/* Data acquisition register */
 #define BMP280_STATUS                   0XF3
 #define BMP280_RESET                    0XEO
 #define BMP280_ID                       0XD0        /* Chip identification number = 0x58 */
@@ -48,6 +48,7 @@ void spi_rx(uint8_t *data, uint32_t size);
 void cs_enable(void);
 void cs_disable(void);
 uint8_t data1;
+unsigned char bit_position = 7;
 //---------------------------------------------------------------------------------------------------
 int main(void)
 {
@@ -56,9 +57,17 @@ int main(void)
   spi_config();
   while(1)
   {
+		//START
     cs_enable();
-    spi_tx(BMP280_ID);
-    spi_rx_1();
+		
+		spi_tx( (BMP280_CTRL_MEAS & ~(1 << bit_position) ));
+    spi_tx(0x57);  //(osrs_t = 010 - oversampling * 2, osrs_p = 101 - oversampling * 16, 11 - Normal Mode)
+		
+		
+		spi_tx( (BMP280_CONFIG & ~(1 << bit_position) ));
+		spi_tx(0x); //t_sb - 000 -.5ms standby time
+		
+		spi_rx_1();
     cs_disable(); 
   }
 }
