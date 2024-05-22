@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.39.0.0
 Copyright (C) 2023 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: vysakh c, HP Inc., LIC=----
+License Information: Vysakh c, nil, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.39.0.0
@@ -22,31 +22,62 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 D:\STM32F407-Programs-CMSIS\SPI\BMP280_Pressure_Sensor\BMP280_Pressure_Sensor.uvprojx
-Project File Date:  05/16/2024
+Project File Date:  05/18/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.21', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-main.c(158): warning: implicit conversion loses integer precision: 'volatile uint32_t' (aka 'volatile unsigned int') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
-  158 |         *data++ = SPI1->DR;
-      |                 ~ ~~~~~~^~
-main.c(170): warning: implicit conversion loses integer precision: 'volatile uint32_t' (aka 'volatile unsigned int') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
-  170 |         data1 = SPI1->DR;  
-      |               ~ ~~~~~~^~
-main.c(50): warning: no previous extern declaration for non-static variable 'data1' [-Wmissing-variable-declarations]
-   50 | uint8_t data1;
-      |         ^
-main.c(50): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-   50 | uint8_t data1;
+main.c(52): warning: no previous extern declaration for non-static variable 'bit_position' [-Wmissing-variable-declarations]
+   52 | unsigned char bit_position = 7;
+      |               ^
+main.c(52): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   52 | unsigned char bit_position = 7;
       | ^
-main.c(158): warning: unsafe pointer arithmetic [-Wunsafe-buffer-usage]
-  158 |         *data++ = SPI1->DR;
+main.c(53): warning: no previous extern declaration for non-static variable 'temp_raw' [-Wmissing-variable-declarations]
+   53 | int16_t temp_raw = 0;
+      |         ^
+main.c(53): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   53 | int16_t temp_raw = 0;
+      | ^
+main.c(54): warning: no previous extern declaration for non-static variable 'i' [-Wmissing-variable-declarations]
+   54 | int i =0;
+      |     ^
+main.c(54): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   54 | int i =0;
+      | ^
+main.c(56): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   56 | void delay()
+      |           ^
+      |            void
+main.c(58): warning: declaration shadows a variable in the global scope [-Wshadow]
+   58 |         for (volatile int i = 0; i <1000; i++);
+      |                           ^
+main.c(54): note: previous declaration is here
+   54 | int i =0;
+      |     ^
+main.c(73): warning: mixing declarations and code is incompatible with standards before C99 [-Wdeclaration-after-statement]
+   73 |                 uint8_t m = spi_rx_1();
+      |                         ^
+main.c(175): warning: implicit conversion loses integer precision: 'volatile uint32_t' (aka 'volatile unsigned int') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+  175 |         *data++ = SPI1->DR;
+      |                 ~ ~~~~~~^~
+main.c(187): warning: implicit conversion loses integer precision: 'volatile uint32_t' (aka 'volatile unsigned int') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
+  187 |       return SPI1->DR;  
+      |       ~~~~~~ ~~~~~~^~
+main.c(51): warning: no previous extern declaration for non-static variable 'data1' [-Wmissing-variable-declarations]
+   51 | uint8_t data1;
+      |         ^
+main.c(51): note: declare 'static' if the variable is not intended to be used outside of this translation unit
+   51 | uint8_t data1;
+      | ^
+main.c(175): warning: unsafe pointer arithmetic [-Wunsafe-buffer-usage]
+  175 |         *data++ = SPI1->DR;
       |          ^~~~
-4 warnings generated.
+10 warnings generated.
 compiling main.c...
 linking...
-Program Size: Code=780 RO-data=408 RW-data=0 ZI-data=1640  
-".\Objects\BMP280_Pressure_Sensor.axf" - 0 Error(s), 4 Warning(s).
+Program Size: Code=7616 RO-data=968 RW-data=0 ZI-data=1720  
+".\Objects\BMP280_Pressure_Sensor.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -64,20 +95,20 @@ Package Vendor: Keil
 
 <h2>Collection of Component include folders:</h2>
   ./RTE/_Target_1
-  C:/Users/vysak/AppData/Local/Arm/Packs/ARM/CMSIS/6.0.0/CMSIS/Core/Include
-  C:/Users/vysak/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+  C:/Users/user/AppData/Local/Arm/Packs/ARM/CMSIS/6.0.0/CMSIS/Core/Include
+  C:/Users/user/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE@6.0.0
 
    * Component: Keil::Device:Startup@2.6.3
+      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f407xx.s
       Source file:   MDK/Device/Source/ARM/STM32F40xxx_41xxx_OPT.s
       Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
-      Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>
