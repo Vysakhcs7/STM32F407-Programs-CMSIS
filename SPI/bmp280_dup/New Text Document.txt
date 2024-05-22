@@ -26,7 +26,6 @@ AF5 - SPI1 (10: Alternate function mode) - 0101: Pins - 23 22 21 20 - GPIOA->AFR
 */
 //---------------------------------------------------------------------------------------------------
 #include "stm32f407xx.h"
-#include "uart2.h"
 //---------------------------------------------------------------------------------------------------
 #define BMP280_TEMP_XLSB                0XFC
 #define BMP280_TEMP_LSB                 0XFB
@@ -44,24 +43,15 @@ void clock_config(void);
 void spi_gpio_conifg(void);
 void spi_config(void);
 void spi_tx(uint8_t tx_data);
-uint8_t spi_rx_1(void);
+void spi_rx_1(void);
 void spi_rx(uint8_t *data, uint32_t size);
 void cs_enable(void);
 void cs_disable(void);
 uint8_t data1;
 unsigned char bit_position = 7;
-int16_t temp_raw = 0;
-int i =0;
-void delay(void);
-void delay()
-{
-	for (volatile int i = 0; i <1000; i++);
-}
 //---------------------------------------------------------------------------------------------------
 int main(void)
 {
-	uart2_gpio_config();
-  uart2_config();
   clock_config();
   spi_gpio_conifg();
   spi_config();
@@ -69,14 +59,16 @@ int main(void)
   {
 		//START
     cs_enable();
-		spi_tx(0xD0);
-		uint8_t m = spi_rx_1();
-		printf("0x%x\n\r",m);
-		    cs_disable(); 
 		
-
-		delay();
-
+		spi_tx( (BMP280_CTRL_MEAS & ~(1 << bit_position) ));
+    spi_tx(0x57);  //(osrs_t = 010 - oversampling * 2, osrs_p = 101 - oversampling * 16, 11 - Normal Mode)
+		
+		
+		spi_tx( (BMP280_CONFIG & ~(1 << bit_position) ));
+		spi_tx(0x); //t_sb - 000 -.5ms standby time
+		
+		spi_rx_1();
+    cs_disable(); 
   }
 }
 //----------------------------------------------------------------------------------------------------
@@ -160,7 +152,7 @@ void spi_tx(uint8_t tx_data)
   SPI1->DR = tx_data;
   
     // Wait until TXE flag is set and BSY flag is reset
-    while (!(SPI1->SR & SPI_SR_TXE) || (SPI1->SR & SPI_SR_BSY)) {}
+   // while (!(SPI1->SR & SPI_SR_TXE) || (SPI1->SR & SPI_SR_BSY)) {}
 }
 //-----------------------------------------------------------------------------------------------------
 void spi_rx(uint8_t *data, uint32_t size)
@@ -177,14 +169,14 @@ void spi_rx(uint8_t *data, uint32_t size)
     }
 }
 //-----------------------------------------------------------------------------------------------------
-uint8_t spi_rx_1(void)
+void spi_rx_1(void)
 {
     // Send dummy data to generate clock
     SPI1->DR = 0x00;
   
    /* Wait for RXNE flag to be set */
         while (!(SPI1->SR & SPI_SR_RXNE )) {}
-      return SPI1->DR;  
+        data1 = SPI1->DR;  
 }
 //-----------------------------------------------------------------------------------------------------
 void cs_enable(void)
