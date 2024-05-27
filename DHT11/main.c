@@ -1,7 +1,7 @@
 
 //-----------------------------------------------------------------------------------------------
 /*
-*Program to interface DHT11 with the stm32f407vgt6 discovery board.
+*Program to interface DHT11 with the STM32F407 discovery board.
 
 GPIOA -> PIN 1  -> DHT11
 
